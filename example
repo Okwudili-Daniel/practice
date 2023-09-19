@@ -1,0 +1,64 @@
+// import fs from "fs"
+// import path from   "path"
+
+// fs.mkdir("./Class", (error): void =>{
+//     if (error) {
+//         console.log("An error in creating folder", error);
+//     }else{
+//         console.log("Folder Created Suusccesfully");
+//     }
+// })
+
+// const newMsg = "Help me buy Food"
+// fs.writeFile(path.join(__dirname, "../Class", "OldFile.txt"),newMsg,(error):void => {
+//     if (error){
+//         // console.log("Error writing a File", error)
+//     }else{
+//         // console.log("New file Added")
+//     }
+// })
+
+// const newMsg2 = "/nBuy snacks for joan"
+// fs.appendFile(path.join(__dirname, "../Class", "OldFile.txt"),newMsg2,(error):void => {
+//     if (error){
+//         // console.log("Error writing a File", error)
+//     }else{
+//         // console.log("New file Added")
+//     }
+// })
+
+// // setInterval(()=>{
+// //     const newMsg2 = "/nBuy snacks for joan"
+// // fs.appendFile(path.join(__dirname, "../Class", "OldFile.txt"),newMsg2,(error):void => {
+// //     if (error){
+// //         // console.log("Error writing a File", error)
+// //     }else{
+// //         // console.log("New file Added")
+// //     }
+// // })
+// //     // console.log(newMsg2)
+// // },5000)
+
+
+// // Asignment
+
+// // const randNames: string [] = ["Ahmed", "Samuel", "Tobi", "Prince", "Isaac",  "Habeeb", "Joan", "Ekene", "Zion", "Delight", "Stanley", "Jessica", "Ayomide"]
+// // setInterval(()=> {
+// //     const randNamesSend = (Math.floor(Math.random() * randNames.length))
+// //     fs.appendFile(path.join(__dirname,"../class", "OldFile.txt"),randNames[randNamesSend],(error):void =>{
+// //         if(error){
+// //             console.log("Error Pushing in new names", error)
+// //         }else {
+// //             console.log("Radom Name added");
+            
+// //         }
+// //     })
+// // },3000)
+
+// fs.readFile(path.join(__dirname, "Class", "OldFile.txt"), "utf-8", (error,data)=>{
+//     if(error){
+//         console.log(error)
+//     }else{
+//         console.log(data)
+//     }
+// })
