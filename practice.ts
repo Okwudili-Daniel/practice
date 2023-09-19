@@ -1,84 +1,82 @@
 import http, {IncomingMessage, ServerResponse} from "http"
 
-const port = 7674;
+const port: number = 1111
+
+interface iData{
+    id: number
+    color: string
+}
 
 interface iMessage{
-    message: string;
-    success: boolean;
+    message: string
+    success: boolean
     data: null | object | {}[]
 }
 
-const third = [
+const fourth: iData[] = [
     {
-        postition: 1,
-        name: "ebuka",
-        sch: "tolu"
+        id: 9,
+        color: "pink",
     },
     {
-        postition: 2,
-        name: "victoria",
-        sch: "tolu"
+        id: 8,
+        color: "gold",
     },
     {
-        postition: 3,
-        name: "victor",
-        sch: "tolu"
+        id: 7,
+        color: "green",
     },
     {
-        postition: 4,
-        name: "lovelny",
-        sch: "tolu"
+        id: 6,
+        color: "blue",
     },
     {
-        postition: 5,
-        name: "ebuka",
-        sch: "tolu"
+        id: 5,
+        color: "pink",
     },
 ]
 
-const server = http.createServer((req: IncomingMessage, res: ServerResponse<IncomingMessage>) =>{
+const server = http.createServer((req: IncomingMessage, res: ServerResponse) =>{
     res.setHeader("Content-Type", "application/json")
 
     const {method, url} = req
-    let status = 401;
+    let status: number = 404;
 
-    let response: iMessage ={
+    let response: iMessage = {
         message: "failed",
         success: false,
-        data: null
+        data: null,
     }
-
     const container:any = []
-    req.on("data", (chunk: any) =>{
-    
+    req.on("data", (chunk:any) =>{
         container.push(chunk)
-
     }).on("end", () =>{
-        
-        if(url === "/" && method === "GET"){
-            status === 200;
-            response.message = "Success"
-            response.success = true
-            response.data = third;
-            res.write(JSON.stringify({status, response}))
+        if (url === "/" && method === "GET"){
+            status = 200;
+            response.message = "Success";
+            response.success = true;
+            response.data = fourth;
+            res.write(JSON.stringify({response, status}))
 
-            res.end()
+            res.end();
         }
 
         if (url === "/" && method === "POST"){
-            status === 201;
-            const body = JSON.parse(container);
-            third.push(body);
-            response.message = "Added"
-            response.success = true
-            response.data = third;
-            res.write(JSON.stringify({status, response}))
+            status = 201;
+            const body = JSON.parse(container)
+            fourth.push(body)
 
-            res.end()
+            response.message = "Added";
+            response.success = true;
+            response.data = fourth;
+            res.write(JSON.stringify({response, status}))
+
+            res.end();
         }
     })
-})
+    })
 
-server.listen(port, () =>{
-    console.log("Done")
-})
+    server.listen(port, () =>{
+        console.log("Done");
+        
+    })
