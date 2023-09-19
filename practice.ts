@@ -1,88 +1,84 @@
-import http, {IncomingMessage, ServerResponse} from "http";
+import http, {IncomingMessage, ServerResponse} from "http"
 
-const port: number = 9894;
+const port = 7674;
 
-interface iData{
-    id: number;
-    name: string;
-    class: string;
-}
-
-interface iMessage {
+interface iMessage{
     message: string;
     success: boolean;
-    data:  null | object | {}[];
+    data: null | object | {}[]
 }
 
-const Dom: iData[] = [
+const third = [
     {
-        id: 1,
-        name: "joy",
-        class: "js 1"
-    },
-    {
-        id: 2,
-        name: "chioma",
-        class: "ss 1"
-    },
-    {
-        id: 3,
-        name: "Isreal",
-        class: "js 3"
-    },
-    {
-        id: 4,
-        name: "chisom",
-        class: "ss 2"
-    },
-    {
-        id: 5,
+        postition: 1,
         name: "ebuka",
-        class: "js 1"
+        sch: "tolu"
+    },
+    {
+        postition: 2,
+        name: "victoria",
+        sch: "tolu"
+    },
+    {
+        postition: 3,
+        name: "victor",
+        sch: "tolu"
+    },
+    {
+        postition: 4,
+        name: "lovelny",
+        sch: "tolu"
+    },
+    {
+        postition: 5,
+        name: "ebuka",
+        sch: "tolu"
     },
 ]
 
-
-const server = http.createServer((req:IncomingMessage, res:ServerResponse<IncomingMessage>) =>{
+const server = http.createServer((req: IncomingMessage, res: ServerResponse<IncomingMessage>) =>{
     res.setHeader("Content-Type", "application/json")
 
-    const {method, url} = req;
-    let status: number = 404;
+    const {method, url} = req
+    let status = 401;
 
-    let response: iMessage = {
+    let response: iMessage ={
         message: "failed",
         success: false,
         data: null
     }
 
-    const container: any = []
+    const container:any = []
     req.on("data", (chunk: any) =>{
+    
         container.push(chunk)
-    }).on("end", () =>{
-        if (url === "/" && method === "GET"){
-            status = 200;
-            response.message = "Success";
-            response.success = true;
-            response.data = Dom;
-            res.write(JSON.stringify({response, status}));
 
-            res.end();
+    }).on("end", () =>{
+        
+        if(url === "/" && method === "GET"){
+            status === 200;
+            response.message = "Success"
+            response.success = true
+            response.data = third;
+            res.write(JSON.stringify({status, response}))
+
+            res.end()
         }
 
         if (url === "/" && method === "POST"){
-            status = 201;
+            status === 201;
             const body = JSON.parse(container);
-            Dom.push(body);
-            response.message = "Added";
-            response.success = true;
-            response.data = Dom;
-            res.write(JSON.stringify({response, status}));
+            third.push(body);
+            response.message = "Added"
+            response.success = true
+            response.data = third;
+            res.write(JSON.stringify({status, response}))
 
-            res.end();
+            res.end()
         }
     })
 })
 
 server.listen(port, () =>{
-    console.log("Created");
+    console.log("Done")
 })
