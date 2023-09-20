@@ -15,7 +15,7 @@ interface iMessage {
   data: null | {} | {}[];
 }
 
-const sixth: iData[] = [
+const seventh: iData[] = [
     {
         id: 9,
         color: "pink",
@@ -40,7 +40,7 @@ const sixth: iData[] = [
 
 const server = http.createServer(
   (req: IncomingMessage, res: ServerResponse<IncomingMessage>) => {
-    res.setHeader("Content-Type", "Application/Json");
+    res.setHeader("Content-Type", "application/json");
     const { method, url } = req;
     let status: number = 404;
 
@@ -59,18 +59,18 @@ const server = http.createServer(
           status = 200;
           response.message = "All set08 data gotten";
           response.success = true;
-          response.data = sixth;
-          res.write(JSON.stringify({ response, status }));
+          response.data = seventh;
+          res.write(JSON.stringify({status, response }));
           res.end();
         }
         if (url === "/" && method === "POST") {
           status = 201;
           const body = JSON.parse(container);
-          sixth.push(body);
-          response.message = "SUCCESSFULLY added";
+          seventh.push(body);
+          response.message = "Added";
           response.success = true;
-          response.data = sixth;
-          res.write(JSON.stringify({ response, status }));
+          response.data = seventh;
+          res.write(JSON.stringify({status, response }));
 
           res.end();
         }
@@ -79,5 +79,5 @@ const server = http.createServer(
 );
 
 server.listen(port, () => {
-  console.log("Server is up and running");
+  console.log("Created");
 });
