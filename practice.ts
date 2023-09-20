@@ -2,13 +2,11 @@
 
 import http, { IncomingMessage, ServerResponse } from "http";
 import event from "events";
-const port: number = 9999;
+const port: number = 1010;
 
 interface iData {
   id: number;
-  name: string;
-  phone: number;
-  stack: string;
+ color: string
 }
 
 interface iMessage {
@@ -17,38 +15,28 @@ interface iMessage {
   data: null | {} | {}[];
 }
 
-const set08: iData[] = [
-  {
-    id: 1,
-    name: "joan",
-    phone: 8023474637,
-    stack: "Full-Stack",
-  },
-  {
-    id: 2,
-    name: "Habib",
-    phone: 8023474637,
-    stack: "Full-Stack",
-  },
-  {
-    id: 3,
-    name: "Daniel",
-    phone: 8023474637,
-    stack: "Full-Stack",
-  },
-  {
-    id: 4,
-    name: "SEAN",
-    phone: 8023474637,
-    stack: "Full-Stack",
-  },
-  {
-    id: 5,
-    name: "joan",
-    phone: 8023474637,
-    stack: "Full-Stack",
-  },
-];
+const sixth: iData[] = [
+    {
+        id: 9,
+        color: "pink",
+    },
+    {
+        id: 8,
+        color: "gold",
+    },
+    {
+        id: 7,
+        color: "green",
+    },
+    {
+        id: 6,
+        color: "blue",
+    },
+    {
+        id: 5,
+        color: "pink",
+    },
+]
 
 const server = http.createServer(
   (req: IncomingMessage, res: ServerResponse<IncomingMessage>) => {
@@ -71,17 +59,17 @@ const server = http.createServer(
           status = 200;
           response.message = "All set08 data gotten";
           response.success = true;
-          response.data = set08;
+          response.data = sixth;
           res.write(JSON.stringify({ response, status }));
           res.end();
         }
         if (url === "/" && method === "POST") {
           status = 201;
           const body = JSON.parse(container);
-          set08.push(body);
+          sixth.push(body);
           response.message = "SUCCESSFULLY added";
           response.success = true;
-          response.data = set08;
+          response.data = sixth;
           res.write(JSON.stringify({ response, status }));
 
           res.end();
