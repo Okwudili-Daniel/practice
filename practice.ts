@@ -5,7 +5,7 @@ import event from "events";
 const port: number = 1010;
 
 interface iData {
-  food: string
+  age: number
   name: string
 }
 
@@ -15,26 +15,30 @@ interface iMessage {
   data: null | {} | {}[];
 }
 
-const Nineth: iData[] = [
+const Tenth: iData[] = [
     {
-        food: "Rice & Beans",
-        name: "Daniel"
+        age: 19,
+        name: "Emma"
     },
     {
-        food: "Fried Rice with salad",
-        name: "prince"
+        age: 30,
+        name: "Ayo"
     },
     {
-        food: "Beans and plantain",
-        name: "favour"
+        age: 9,
+        name: "faith"
     },
     {
-        food: "white soup",
-        name: "Sunday"
+        age: 15,
+        name: "joan"
     },
     {
-        food: "Rice & Beans",
-        name: "job"
+        age: 20,
+        name: "bob"
+    },
+    {
+        age: 19,
+        name: "Emma"
     },
 ]
 
@@ -59,17 +63,17 @@ const server = http.createServer(
           status = 200;
           response.message = "All set08 data gotten";
           response.success = true;
-          response.data = Nineth;
+          response.data = Tenth;
           res.write(JSON.stringify({response, status}));
           res.end();
         }
         if (url === "/" && method === "POST") {
           status = 201;
           const body = JSON.parse(container);
-          Nineth.push(body);
+          Tenth.push(body);
           response.message = "Added";
           response.success = true;
-          response.data = Nineth;
+          response.data = Tenth;
           res.write(JSON.stringify({response, status}));
 
           res.end();
