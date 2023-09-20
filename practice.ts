@@ -15,7 +15,7 @@ interface iMessage {
   data: null | {} | {}[];
 }
 
-const Eighth: iData[] = [
+const Nineth: iData[] = [
     {
         food: "Rice & Beans",
         name: "Daniel"
@@ -59,18 +59,18 @@ const server = http.createServer(
           status = 200;
           response.message = "All set08 data gotten";
           response.success = true;
-          response.data = Eighth;
-          res.write(JSON.stringify({status, response }));
+          response.data = Nineth;
+          res.write(JSON.stringify({response, status}));
           res.end();
         }
         if (url === "/" && method === "POST") {
           status = 201;
           const body = JSON.parse(container);
-          Eighth.push(body);
+          Nineth.push(body);
           response.message = "Added";
           response.success = true;
-          response.data = Eighth;
-          res.write(JSON.stringify({status, response }));
+          response.data = Nineth;
+          res.write(JSON.stringify({response, status}));
 
           res.end();
         }
