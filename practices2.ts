@@ -102,8 +102,8 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse<Inco
                 status = 404;
 
                 (response.message = "User not found");
+                (response.data = null);
                 (response.success = false);
-                (response.data = null)
                 res.write(JSON.stringify({response, status}))
 
                 res.end()
