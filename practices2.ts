@@ -18,22 +18,22 @@ let Data: iData[] = [
     {
         id: 1,
         age: 10,
-        name: "Daniel"
+        name: "onyi"
     },
     {
         id: 2,
         age: 10,
-        name: "soludo"
+        name: "ebuka"
     },
     {
         id: 3,
         age: 10,
-        name: "caleb"
+        name: "solo"
     },
     {
         id: 4,
         age: 10,
-        name: "mom"
+        name: "wisdom"
     },
     {
         id: 5,
