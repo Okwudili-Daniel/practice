@@ -78,9 +78,9 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse<Inco
             const body = JSON.parse(Container);
             Data.push(body)
 
-            response.message = "Added",
-            response.success = true,
-            response.data = Data
+            response.message = "Added";
+            response.data = Data;
+            response.success = true;
             res.write(JSON.stringify({response, status}))
 
             res.end()
