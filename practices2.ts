@@ -170,8 +170,8 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse<Inco
                 status = 200;
 
                 (response.message = "Udated");
+                (response.data = Data);
                 (response.success = true);
-                (response.data = Data)
                 res.write(JSON.stringify({response, status}))
 
                 res.end()
