@@ -67,7 +67,7 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse<Inco
             response.message = "Succesed";
             response.success = true;
             response.data = Data;
-            res.write(JSON.stringify({status, response}))
+            res.write(JSON.stringify({response, status}))
 
             res.end()
         }
@@ -81,7 +81,7 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse<Inco
             response.message = "Added",
             response.success = true,
             response.data = Data
-            res.write(JSON.stringify({status, response}))
+            res.write(JSON.stringify({response, status}))
 
             res.end()
         }
@@ -104,7 +104,7 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse<Inco
                 (response.message = "User not found");
                 (response.success = false);
                 (response.data = null)
-                res.write(JSON.stringify({status, response}))
+                res.write(JSON.stringify({response, status}))
 
                 res.end()
             }else{
