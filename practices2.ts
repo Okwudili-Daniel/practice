@@ -147,8 +147,8 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse<Inco
                 status = 401;
 
                 (response.message= "Not Found");
+                (response.data = null);
                 (response.success= false);
-                (response.data = null)
                 res.write(JSON.stringify({response, status}))
 
                 res.end()
