@@ -123,8 +123,8 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse<Inco
                 status = 200;
 
                 (response.message = "Updated");
-                (response.success = true);
                 (response.data = Data);
+                (response.success = true);
                 res.write(JSON.stringify({status, response}));
 
                 res.end()
