@@ -16,12 +16,12 @@ interface iMessage{
 
 let Data: iData[] = [
     {
-        id: 1,
+        id: 5,
         age: 10,
         name: "onyi"
     },
     {
-        id: 2,
+        id: 4,
         age: 10,
         name: "ebuka"
     },
@@ -31,12 +31,12 @@ let Data: iData[] = [
         name: "solo"
     },
     {
-        id: 4,
+        id: 2,
         age: 10,
         name: "wisdom"
     },
     {
-        id: 5,
+        id: 1,
         age: 10,
         name: "dad"
     },
