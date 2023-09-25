@@ -149,7 +149,7 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse<Inco
                 (response.message= "Not Found");
                 (response.success= false);
                 (response.data = null)
-                res.write(JSON.stringify({status, response}))
+                res.write(JSON.stringify({response, status}))
 
                 res.end()
             }else{
@@ -172,7 +172,7 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse<Inco
                 (response.message = "Udated");
                 (response.success = true);
                 (response.data = Data)
-                res.write(JSON.stringify({status, response}))
+                res.write(JSON.stringify({response, status}))
 
                 res.end()
                 
