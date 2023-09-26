@@ -1,188 +1,212 @@
 import http, { IncomingMessage, ServerResponse } from "http"
 
-const port= 1500
+const port = 3500
 
-interface iData {
-    id: number,
-    age: number
-    name: string,
+interface IMessage{
+    message: string
+    success: boolean
+    data: null | {} | {}[]
 }
 
-interface iMessage{
-    message: string,
-    success: boolean,
-    data: null | object | {}[]
-}
 
-let Data: iData[] = [
-    {
-        id: 5,
-        age: 10,
-        name: "onyi"
-    },
-    {
-        id: 4,
-        age: 10,
-        name: "ebuka"
-    },
-    {
-        id: 3,
-        age: 10,
-        name: "solo"
-    },
-    {
-        id: 2,
-        age: 10,
-        name: "wisdom"
-    },
-    {
-        id: 1,
-        age: 10,
-        name: "dad"
-    },
-]
+    let Data = [
+        {
+            id: 1,
+            name: "Daniel",
+            age: 20,
+        },
+        {
+            id: 2,
+            name: "Daniel",
+            age: 20,
+        },
+        {
+            id: 3,
+            name: "Daniel",
+            age: 20,
+        },
+        {
+            id: 4,
+            name: "Daniel",
+            age: 20,
+        },
+        {
+            id: 5,
+            name: "Daniel",
+            age: 20,
+        },
+        {
+            id: 6,
+            name: "Daniel",
+            age: 20,
+        },
+    ]
 
-
-const server = http.createServer((req: IncomingMessage, res: ServerResponse<IncomingMessage>) =>{
-    res.setHeader("Content-Type", "application/json")
+const server = http.createServer((req:IncomingMessage, res: ServerResponse<IncomingMessage>) =>{
+    res.setHeader("Content-Type", "application/json");
 
     const {method, url} = req
-    let status = 404
+    let status = 404;
 
-    let response: iMessage = {
-        message: "failed",
+    let response: IMessage ={
+        message: "Failed",
         success: false,
-        data: null
+        data: null,
     }
 
-    let Container:any = []
+    let Contanier: any = []
 
     req.on("data", (chunk: any) =>{
-        Container.push(chunk)
+        Contanier.push(chunk)
 
     }).on("end", () =>{
-        if(url === "/" && method === "GET"){
-            status = 200
 
-            response.message = "Succesed";
-            response.success = true;
-            response.data = Data;
-            res.write(JSON.stringify({response, status}))
+        // Get Method
+        if (url === "/" && method === "GET") {
+            status = 200;
 
-            res.end()
+            response.message = "Success"
+            response.success = true
+            response.data = Data
+            res.write(JSON.stringify({status, response}))
+
+            res.end()            
         }
 
-        if(url === "/" && method === "POST"){
-            status = 201
-
-            const body = JSON.parse(Container);
+        // Post Method
+        if (url === "/" && method === "POST") {
+            status = 201;
+            const body = JSON.parse(Contanier)
             Data.push(body)
 
-            response.message = "Added";
-            response.data = Data;
-            response.success = true;
-            res.write(JSON.stringify({response, status}))
-
-            res.end()
+            response.message = "Added"
+            response.success = true
+            response.data = Data
+            res.write(JSON.stringify({status, response}))
+            res.end()            
         }
 
-        // patch
+        // Put method
+        if(method === "PUT"){
+            const body = JSON.parse(Contanier)
 
-        if(method === "PATCH"){
-            const build = JSON.parse(Container)
+            let Link:any = url?.split("/")[1]
+            let num = parseInt(Link)
 
-            let Link: any = url?.split("/")[1]
-            let Unlink = parseInt(Link)
-
-            let $object = Data.some((el) =>{
-                return el.id === Unlink;
+            let find = Data.some((el) =>{
+                return el.id === num
             })
 
-            if($object === false){
+            if (find === false) {
                 status = 404;
 
                 (response.message = "User not found");
-                (response.data = null);
                 (response.success = false);
-                res.write(JSON.stringify({response, status}))
-
-                res.end()
+                (response.data = Data)
             }else{
-                const update = build.name;
+                const updatename = body.name
+                const updateage = body.age
 
                 Data = Data.map((user: any) =>{
-                    if(user?.id === Unlink){
-                        return{
-                            id: user?.id,
-                            name: update
-                        }
-                    }
-                    return user
-                })
-
-                status = 200;
-
-                (response.message = "Updated");
-                (response.data = Data);
-                (response.success = true);
-                res.write(JSON.stringify({status, response}));
-
-                res.end()
-            }
-        }
-
-        // Put
-
-        if(method === "PUT"){
-            const build = JSON.parse(Container)
-
-            const Link: any = url?.split("/")[1]
-            const parse = parseInt(Link)
-
-            let $object = Data.some((el) =>{
-                return el.id === parse
-            })
-
-            if($object === false){
-                status = 401;
-
-                (response.message= "Not Found");
-                (response.data = null);
-                (response.success= false);
-                res.write(JSON.stringify({response, status}))
-
-                res.end()
-            }else{
-                const update = build.name
-                const updateag = build.age
-
-                Data = Data.map((user: any) =>{
-                    if(user?.id === parse) {
+                    if (user?.id === num) {
                         return {
                             id: user?.id,
-                            age: updateag,
-                            name: update,
+                            name: updatename,
+                            age: updateage
                         }
                     }
                     return user
                 })
-
                 status = 200;
-
-                (response.message = "Udated");
-                (response.data = Data);
+                (response.message = "Updated");
                 (response.success = true);
-                res.write(JSON.stringify({response, status}))
-
+                (response.data = Data);
+                res.write(JSON.stringify({status, response}))
                 res.end()
-                
             }
         }
 
+        // Patch method
+        if(method === "PATCH"){
+            const body = JSON.parse(Contanier)
+
+            let Link: any = url?.split("/")[1]
+            let num = parseInt(Link)
+
+            let find = Data.some((el) =>{
+                return el.id === num
+            })
+
+            if (find === false){
+                status = 404;
+                (response.message = "User not found");
+                (response.success = false);
+                (response.data = null);
+
+                res.write(JSON.stringify({status, response}))
+                res.end()
+
+            }else{
+                const updatename = body.name
+
+                Data = Data.map((user: any) =>{
+                    if(user?.id === num){
+                        return{
+                            id: user?.id,
+                            name: updatename,
+                            age: user?.age
+                        }
+                    }
+                    return user
+                })
+                status = 200;
+                (response.message = "Updated");
+                (response.success = true);
+                (response.data = Data)
+                res.write(JSON.stringify({status, response}))
+                res.end()
+            }
+        }
+
+        // Delete method
+        if(method === "DELETE"){
+            const body = JSON.parse(Contanier)
+
+            let Link: any = url?.split("/")[1]
+            let num = parseInt(Link)
+
+            Data = Data.filter((el) =>{
+                return el.id !== num
+            })
+
+            response.message = "User deleted"
+            response.success = true
+            response.data = Data
+            res.write(JSON.stringify(response))
+            res.end()
+        }
+
+        // Get One
+        if(method === "GET"){
+            const body: any = url?.split("/")[1]
+            let Link = parseInt(body)
+            
+
+            let test = Data.filter((el) =>{
+                return el.id === Link
+            })
+
+            response.message = "Gotten"
+            response.success = true
+            response.data = test
+            res.write(JSON.stringify({response}))
+            res.end()
+        }
     })
+    
 })
 
 server.listen(port, () =>{
-    console.log("Done");
+    console.log("Awaiting");
     
 })
